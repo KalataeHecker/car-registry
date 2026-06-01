@@ -7,17 +7,19 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
+<!-- HEADER -->
 <div class="topbar">
-    <div class="logo">🏛️ Регистър на автомобили</div>
-    <div class="user" onclick="openLogin()">👤 Вход</div>
+    <div class="login" onclick="openLogin()">👤 Вход</div>
 </div>
+
+<!-- TITLE -->
+<h1 class="title">РЕГИСТЪР НА АВТОМОБИЛИ</h1>
 
 <!-- LOGIN -->
 <div id="loginModal" class="modal">
     <div class="modal-box">
         <span class="close" onclick="closeLogin()">✖</span>
-        <h2>Системен вход</h2>
+        <h2>Админ достъп</h2>
         <input id="username" placeholder="Потребител">
         <input type="password" id="password" placeholder="Парола">
         <button onclick="login()">Вход</button>
@@ -25,9 +27,9 @@
     </div>
 </div>
 
-<!-- ADMIN FORM -->
+<!-- ADMIN PANEL -->
 <div class="panel admin-only">
-    <h3 id="formTitle">Добавяне на автомобил</h3>
+    <h3>Добавяне / редакция</h3>
 
     <input type="file" id="imgFile" accept="image/*">
 
@@ -39,6 +41,11 @@
     <input id="info" placeholder="Характеристики">
 
     <button onclick="saveCar()">Запази</button>
+</div>
+
+<!-- GUEST VIEW -->
+<div id="guestView" class="guest-box">
+    <p>🔍 Системата е в режим само за преглед</p>
 </div>
 
 <!-- TABLE -->
