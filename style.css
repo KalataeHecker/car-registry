@@ -5,88 +5,58 @@ body {
     color: white;
 }
 
-/* TOPBAR */
+/* TOP */
 .topbar {
-    height: 60px;
-    background: #111a2e;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+    padding: 15px;
+    background: #111a2e;
 }
 
-.logo {
+.title {
+    font-size: 20px;
     font-weight: bold;
 }
 
-.user {
-    cursor: pointer;
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
     background: #1f2a44;
-    padding: 8px 12px;
-    border-radius: 6px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-/* SIDEBAR */
-.sidebar {
-    width: 200px;
-    height: 100vh;
-    background: #0f172a;
-    position: fixed;
-    top: 60px;
-    left: 0;
-    padding: 20px;
-}
-
-.sidebar a {
-    display: block;
-    color: #cbd5e1;
-    text-decoration: none;
-    margin: 10px 0;
-}
-
-.sidebar a:hover {
-    color: white;
-}
-
-/* MAIN */
-.main {
-    margin-left: 220px;
-    padding: 20px;
-}
-
-/* TABLE */
-table {
+.card img {
     width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
-th, td {
-    padding: 12px;
-    border-bottom: 1px solid #1f2a44;
-    text-align: left;
-}
-
-th {
+/* ADMIN */
+.admin-panel {
+    padding: 20px;
     background: #111a2e;
 }
 
-/* INPUT */
-input {
+input, button {
     padding: 10px;
     margin: 5px;
     border: none;
     border-radius: 5px;
-    background: #1f2a44;
-    color: white;
 }
 
 button {
-    padding: 10px;
     background: #2563eb;
-    border: none;
     color: white;
-    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -106,14 +76,35 @@ button {
     margin: 15% auto;
     padding: 20px;
     border-radius: 10px;
+    position: relative;
 }
 
-/* ADMIN */
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+/* DETAILS */
+.details {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    padding: 40px;
+}
+
+.details-box {
+    background: #1f2a44;
+    padding: 20px;
+    width: 400px;
+    margin: auto;
+    border-radius: 10px;
+}
+
 .admin-only {
     display: none;
-}
-
-.logout {
-    margin-top: 20px;
-    background: red;
 }
