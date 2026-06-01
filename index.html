@@ -2,64 +2,49 @@
 <html lang="bg">
 <head>
 <meta charset="UTF-8">
-<title>Регистър на автомобилите</title>
+<title>Регистър на автомобили</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- TOP BAR -->
+<!-- TOP -->
 <div class="topbar">
-    <div class="logo">🚗 Vehicle Registry System</div>
-    <div class="user" onclick="openLogin()">👤 Admin</div>
-</div>
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-    <h3>MENU</h3>
-    <a href="#">Справка</a>
-    <a href="#">Reports</a>
-</div>
-
-<!-- MAIN -->
-<div class="main">
-
-    <h1>Vehicle Register</h1>
-
-    <div class="form admin-only">
-        <input id="plate" placeholder="Plate Number">
-        <input id="brand" placeholder="Brand">
-        <input id="model" placeholder="Model">
-        <button onclick="addCar()">ADD VEHICLE</button>
-    </div>
-
-    <input id="search" placeholder="Search vehicle...">
-
-    <table>
-        <thead>
-            <tr>
-                <th>Plate</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody id="list"></tbody>
-    </table>
-
-    <button class="admin-only logout" onclick="logout()">Logout</button>
-
+    <div class="title">Регистър на автомобили</div>
+    <div class="user" onclick="openLogin()">👤 Вход</div>
 </div>
 
 <!-- LOGIN -->
 <div id="loginModal" class="modal">
     <div class="modal-box">
-        <h2>Admin Login</h2>
-        <input id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="login()">LOGIN</button>
+        <span class="close" onclick="closeLogin()">✖</span>
+        <h2>Админ вход</h2>
+        <input id="username" placeholder="Потребител">
+        <input type="password" id="password" placeholder="Парола">
+        <button onclick="login()">Вход</button>
         <p id="error"></p>
     </div>
 </div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel admin-only">
+    <h3>Добавяне на автомобил</h3>
+
+    <input id="img" placeholder="URL на снимка">
+    <input id="plate" placeholder="Регистрационен номер">
+    <input id="brand" placeholder="Марка">
+    <input id="model" placeholder="Модел">
+    <input id="year" placeholder="Година">
+    <input id="owner" placeholder="Собственик">
+    <input id="info" placeholder="Характеристики на собственик">
+
+    <button onclick="addCar()">Добави</button>
+</div>
+
+<!-- LIST -->
+<div id="cars" class="grid"></div>
+
+<!-- DETAILS -->
+<div id="details" class="details"></div>
 
 <script src="script.js"></script>
 </body>
