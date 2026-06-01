@@ -1,35 +1,68 @@
-let cars = JSON.parse(localStorage.getItem("cars")) || [
-    {
-        img: "https://upload.wikimedia.org/wikipedia/commons/3/3f/BMW_3_Series.jpg",
-        plate: "CA1234AB",
-        brand: "BMW",
-        model: "320d",
-        year: "2018",
-        owner: "Иван Иванов",
-        info: "Шофьор със стаж 10 години"
-    }
-];
+let cars = JSON.parse(localStorage.getItem("cars")) || [];
 
 function save() {
     localStorage.setItem("cars", JSON.stringify(cars));
 }
 
-/* RENDER */
-function render() {
-    const container = document.getElementById("cars");
-    container.innerHTML = "";
+/* IMAGE -> BASE64 */
+function toBase64(file, callback) {
+    const reader = new FileReader();
+    reader.onload = () => callback(reader.result);
+    reader.readAsDataURL(file);
+}
 
-    cars.forEach((c, i) => {
-        container.innerHTML += `
-        <div class="card" onclick="openDetails(${i})">
-            <img src="${c.img}">
-            <h3>${c.plate}</h3>
-            <p>${c.brand} ${c.model}</p>
-        </div>
-        `;
+/* ADD CAR */
+function addCar() {
+    const file = document.getElementById("imgFile").files[0];
+
+    if (!file) return alert("Избери снимка!");
+
+    toBase64(file, (imgData) => {
+        cars.push({
+            img: imgData,
+            plate: plate.value,
+            brand: brand.value,
+            model: model.value,
+            year: year.value,
+            owner: owner.value,
+            info: info.value
+        });
+
+        save();
+        render();
     });
 }
 
+/* RENDER TABLE */
+function render() {
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+
+    cars.forEach((c, i) => {
+        list.innerHTML += `
+        <tr>
+            <td><img src="${c.img}" onclick="openDetails(${i})"></td>
+            <td>${c.plate}</td>
+            <td>${c.brand}</td>
+            <td>${c.model}</td>
+            <td>${c.year}</td>
+            <td>${c.owner}</td>
+            <td><button onclick="deleteCar(${i})">Изтрий</button></td>
+        </tr>
+        `;
+    });
+
+    applyAdmin();
+}
+
+/* DELETE */
+function deleteCar(i) {
+    cars.splice(i, 1);
+    save();
+    render();
+}
+
+/* DETAILS */
 function openDetails(i) {
     const c = cars[i];
 
@@ -50,22 +83,6 @@ function openDetails(i) {
 
 function closeDetails() {
     document.getElementById("details").style.display = "none";
-}
-
-/* ADD CAR */
-function addCar() {
-    cars.push({
-        img: img.value,
-        plate: plate.value,
-        brand: brand.value,
-        model: model.value,
-        year: year.value,
-        owner: owner.value,
-        info: info.value
-    });
-
-    save();
-    render();
 }
 
 /* LOGIN */
