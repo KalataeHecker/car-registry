@@ -6,7 +6,7 @@ function save() {
     localStorage.setItem("cars", JSON.stringify(cars));
 }
 
-/* IMAGE -> BASE64 (реално показване) */
+/* IMAGE -> BASE64 */
 function toBase64(file, cb) {
     const reader = new FileReader();
     reader.onload = () => cb(reader.result);
@@ -50,7 +50,7 @@ function saveCar() {
     }
 }
 
-/* CLEAR FORM */
+/* CLEAR */
 function clearForm() {
     imgFile.value = "";
     plate.value = "";
