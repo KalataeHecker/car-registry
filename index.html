@@ -7,10 +7,10 @@
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- HEADER (като държавен панел) -->
 <div class="header">
-    <div class="logo">🏛️ РЕГИСТЪР НА МПС</div>
-    <div class="login-btn" onclick="openLogin()">👤 Вход</div>
+    <div class="title">🏛️ ИНФОРМАЦИОННА СИСТЕМА – РЕГИСТЪР НА МПС</div>
+    <div class="login" onclick="openLogin()">👤 Вход</div>
 </div>
 
 <!-- LOGIN -->
@@ -25,9 +25,9 @@
     </div>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN FORM -->
 <div class="panel admin-only">
-    <h3>➕ Добавяне на МПС</h3>
+    <h3 id="formTitle">Добавяне на автомобил</h3>
 
     <input type="file" id="imgFile" accept="image/*">
 
@@ -36,13 +36,13 @@
     <input id="model" placeholder="Модел">
     <input id="year" placeholder="Година">
     <input id="owner" placeholder="Собственик">
-    <input id="info" placeholder="Характеристики на собственика">
+    <input id="info" placeholder="Характеристики">
 
-    <button onclick="addCar()">Запис в системата</button>
+    <button onclick="saveCar()">Запази</button>
 </div>
 
 <!-- TABLE -->
-<div class="table-container">
+<div class="table-box">
 <table>
     <thead>
         <tr>
@@ -52,15 +52,12 @@
             <th>Модел</th>
             <th>Година</th>
             <th>Собственик</th>
-            <th>Действие</th>
+            <th class="admin-only">Действия</th>
         </tr>
     </thead>
     <tbody id="list"></tbody>
 </table>
 </div>
-
-<!-- DETAILS -->
-<div id="details" class="details"></div>
 
 <script src="script.js"></script>
 </body>
