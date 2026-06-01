@@ -1,0 +1,119 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0b1220;
+    color: white;
+}
+
+/* TOPBAR */
+.topbar {
+    height: 60px;
+    background: #111a2e;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.user {
+    cursor: pointer;
+    background: #1f2a44;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background: #0f172a;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    padding: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: #cbd5e1;
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+.sidebar a:hover {
+    color: white;
+}
+
+/* MAIN */
+.main {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #1f2a44;
+    text-align: left;
+}
+
+th {
+    background: #111a2e;
+}
+
+/* INPUT */
+input {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background: #1f2a44;
+    color: white;
+}
+
+button {
+    padding: 10px;
+    background: #2563eb;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* LOGIN */
+.modal {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    top: 0;
+}
+
+.modal-box {
+    background: #111a2e;
+    width: 300px;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* ADMIN */
+.admin-only {
+    display: none;
+}
+
+.logout {
+    margin-top: 20px;
+    background: red;
+}
