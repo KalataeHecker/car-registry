@@ -1,21 +1,21 @@
 let cars = JSON.parse(localStorage.getItem("cars")) || [];
 let editIndex = null;
 
-/* SAVE DB */
+/* SAVE */
 function save() {
     localStorage.setItem("cars", JSON.stringify(cars));
 }
 
-/* IMAGE -> BASE64 */
+/* IMAGE */
 function toBase64(file, cb) {
     const reader = new FileReader();
     reader.onload = () => cb(reader.result);
     reader.readAsDataURL(file);
 }
 
-/* ADD / EDIT */
+/* SAVE CAR */
 function saveCar() {
-    const file = document.getElementById("imgFile").files[0];
+    const file = imgFile.files[0];
 
     function finish(img) {
         const car = {
@@ -33,12 +33,11 @@ function saveCar() {
         } else {
             cars[editIndex] = car;
             editIndex = null;
-            formTitle.innerText = "Добавяне на автомобил";
         }
 
         save();
         render();
-        clearForm();
+        clear();
     }
 
     if (file) {
@@ -46,12 +45,12 @@ function saveCar() {
     } else if (editIndex !== null) {
         finish(cars[editIndex].img);
     } else {
-        alert("Избери снимка!");
+        alert("Добави снимка!");
     }
 }
 
 /* CLEAR */
-function clearForm() {
+function clear() {
     imgFile.value = "";
     plate.value = "";
     brand.value = "";
@@ -83,7 +82,7 @@ function render() {
         `;
     });
 
-    applyAdmin();
+    applyMode();
 }
 
 /* DELETE */
@@ -105,7 +104,6 @@ function editCar(i) {
     info.value = c.info;
 
     editIndex = i;
-    formTitle.innerText = "Редакция на автомобил";
 }
 
 /* LOGIN */
@@ -121,21 +119,24 @@ function login() {
     if (username.value === "admin" && password.value === "7272") {
         localStorage.setItem("admin", "true");
         closeLogin();
-        applyAdmin();
+        applyMode();
     } else {
-        error.innerText = "Грешни данни!";
+        error.innerText = "Грешни данни";
     }
 }
 
-/* ADMIN MODE */
-function applyAdmin() {
-    if (localStorage.getItem("admin") === "true") {
-        document.querySelectorAll(".admin-only").forEach(e => {
-            e.style.display = "table-cell";
-        });
-        document.querySelector(".panel").style.display = "block";
-    }
+/* MODE SWITCH */
+function applyMode() {
+    const isAdmin = localStorage.getItem("admin") === "true";
+
+    document.querySelectorAll(".admin-only").forEach(e => {
+        e.style.display = isAdmin ? "table-cell" : "none";
+    });
+
+    document.querySelector(".panel").style.display = isAdmin ? "block" : "none";
+    document.getElementById("guestView").style.display = isAdmin ? "none" : "block";
 }
 
+/* INIT */
 render();
-applyAdmin();
+applyMode();
