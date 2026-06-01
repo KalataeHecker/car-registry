@@ -1,39 +1,67 @@
 let cars = JSON.parse(localStorage.getItem("cars")) || [];
+let editIndex = null;
 
+/* SAVE DB */
 function save() {
     localStorage.setItem("cars", JSON.stringify(cars));
 }
 
-/* IMAGE -> BASE64 */
-function toBase64(file, callback) {
+/* IMAGE -> BASE64 (реално показване) */
+function toBase64(file, cb) {
     const reader = new FileReader();
-    reader.onload = () => callback(reader.result);
+    reader.onload = () => cb(reader.result);
     reader.readAsDataURL(file);
 }
 
-/* ADD CAR */
-function addCar() {
+/* ADD / EDIT */
+function saveCar() {
     const file = document.getElementById("imgFile").files[0];
 
-    if (!file) return alert("Избери снимка!");
-
-    toBase64(file, (imgData) => {
-        cars.push({
-            img: imgData,
+    function finish(img) {
+        const car = {
+            img,
             plate: plate.value,
             brand: brand.value,
             model: model.value,
             year: year.value,
             owner: owner.value,
             info: info.value
-        });
+        };
+
+        if (editIndex === null) {
+            cars.push(car);
+        } else {
+            cars[editIndex] = car;
+            editIndex = null;
+            formTitle.innerText = "Добавяне на автомобил";
+        }
 
         save();
         render();
-    });
+        clearForm();
+    }
+
+    if (file) {
+        toBase64(file, finish);
+    } else if (editIndex !== null) {
+        finish(cars[editIndex].img);
+    } else {
+        alert("Избери снимка!");
+    }
 }
 
-/* RENDER TABLE */
+/* CLEAR FORM */
+function clearForm() {
+    imgFile.value = "";
+    plate.value = "";
+    brand.value = "";
+    model.value = "";
+    year.value = "";
+    owner.value = "";
+    info.value = "";
+}
+
+/* RENDER */
 function render() {
     const list = document.getElementById("list");
     list.innerHTML = "";
@@ -41,13 +69,16 @@ function render() {
     cars.forEach((c, i) => {
         list.innerHTML += `
         <tr>
-            <td><img src="${c.img}" onclick="openDetails(${i})"></td>
+            <td><img src="${c.img}"></td>
             <td>${c.plate}</td>
             <td>${c.brand}</td>
             <td>${c.model}</td>
             <td>${c.year}</td>
             <td>${c.owner}</td>
-            <td><button onclick="deleteCar(${i})">Изтрий</button></td>
+            <td class="admin-only">
+                <button onclick="editCar(${i})">Редактирай</button>
+                <button onclick="deleteCar(${i})">Изтрий</button>
+            </td>
         </tr>
         `;
     });
@@ -62,27 +93,19 @@ function deleteCar(i) {
     render();
 }
 
-/* DETAILS */
-function openDetails(i) {
+/* EDIT */
+function editCar(i) {
     const c = cars[i];
 
-    document.getElementById("details").style.display = "block";
-    document.getElementById("details").innerHTML = `
-        <div class="details-box">
-            <h2>${c.plate}</h2>
-            <img src="${c.img}" style="width:100%">
-            <p><b>Марка:</b> ${c.brand}</p>
-            <p><b>Модел:</b> ${c.model}</p>
-            <p><b>Година:</b> ${c.year}</p>
-            <p><b>Собственик:</b> ${c.owner}</p>
-            <p><b>Характеристики:</b> ${c.info}</p>
-            <button onclick="closeDetails()">Затвори</button>
-        </div>
-    `;
-}
+    plate.value = c.plate;
+    brand.value = c.brand;
+    model.value = c.model;
+    year.value = c.year;
+    owner.value = c.owner;
+    info.value = c.info;
 
-function closeDetails() {
-    document.getElementById("details").style.display = "none";
+    editIndex = i;
+    formTitle.innerText = "Редакция на автомобил";
 }
 
 /* LOGIN */
@@ -95,21 +118,22 @@ function closeLogin() {
 }
 
 function login() {
-    if (username.value === "admin" && password.value === "72725324") {
+    if (username.value === "admin" && password.value === "7272") {
         localStorage.setItem("admin", "true");
         closeLogin();
         applyAdmin();
     } else {
-        error.innerText = "Грешни данни";
+        error.innerText = "Грешни данни!";
     }
 }
 
-/* ADMIN */
+/* ADMIN MODE */
 function applyAdmin() {
     if (localStorage.getItem("admin") === "true") {
         document.querySelectorAll(".admin-only").forEach(e => {
-            e.style.display = "block";
+            e.style.display = "table-cell";
         });
+        document.querySelector(".panel").style.display = "block";
     }
 }
 
