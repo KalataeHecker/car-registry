@@ -2,22 +2,22 @@
 <html lang="bg">
 <head>
 <meta charset="UTF-8">
-<title>Регистър на автомобили</title>
+<title>Регистър на МПС</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- TOP -->
-<div class="topbar">
-    <div class="title">Регистър на автомобили</div>
-    <div class="user" onclick="openLogin()">👤 Вход</div>
+<!-- HEADER -->
+<div class="header">
+    <div class="logo">🏛️ РЕГИСТЪР НА МПС</div>
+    <div class="login-btn" onclick="openLogin()">👤 Вход</div>
 </div>
 
 <!-- LOGIN -->
 <div id="loginModal" class="modal">
     <div class="modal-box">
         <span class="close" onclick="closeLogin()">✖</span>
-        <h2>Админ вход</h2>
+        <h2>Системен достъп</h2>
         <input id="username" placeholder="Потребител">
         <input type="password" id="password" placeholder="Парола">
         <button onclick="login()">Вход</button>
@@ -26,22 +26,38 @@
 </div>
 
 <!-- ADMIN PANEL -->
-<div class="admin-panel admin-only">
-    <h3>Добавяне на автомобил</h3>
+<div class="panel admin-only">
+    <h3>➕ Добавяне на МПС</h3>
 
-    <input id="img" placeholder="URL на снимка">
-    <input id="plate" placeholder="Регистрационен номер">
+    <input type="file" id="imgFile" accept="image/*">
+
+    <input id="plate" placeholder="Рег. номер">
     <input id="brand" placeholder="Марка">
     <input id="model" placeholder="Модел">
     <input id="year" placeholder="Година">
     <input id="owner" placeholder="Собственик">
-    <input id="info" placeholder="Характеристики на собственик">
+    <input id="info" placeholder="Характеристики на собственика">
 
-    <button onclick="addCar()">Добави</button>
+    <button onclick="addCar()">Запис в системата</button>
 </div>
 
-<!-- LIST -->
-<div id="cars" class="grid"></div>
+<!-- TABLE -->
+<div class="table-container">
+<table>
+    <thead>
+        <tr>
+            <th>Снимка</th>
+            <th>Рег. номер</th>
+            <th>Марка</th>
+            <th>Модел</th>
+            <th>Година</th>
+            <th>Собственик</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody id="list"></tbody>
+</table>
+</div>
 
 <!-- DETAILS -->
 <div id="details" class="details"></div>
