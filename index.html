@@ -2,22 +2,22 @@
 <html lang="bg">
 <head>
 <meta charset="UTF-8">
-<title>Регистър на МПС</title>
+<title>Регистър на автомобили</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- HEADER (като държавен панел) -->
-<div class="header">
-    <div class="title">🏛️ ИНФОРМАЦИОННА СИСТЕМА – РЕГИСТЪР НА МПС</div>
-    <div class="login" onclick="openLogin()">👤 Вход</div>
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="logo">🏛️ Регистър на автомобили</div>
+    <div class="user" onclick="openLogin()">👤 Вход</div>
 </div>
 
 <!-- LOGIN -->
 <div id="loginModal" class="modal">
     <div class="modal-box">
         <span class="close" onclick="closeLogin()">✖</span>
-        <h2>Системен достъп</h2>
+        <h2>Системен вход</h2>
         <input id="username" placeholder="Потребител">
         <input type="password" id="password" placeholder="Парола">
         <button onclick="login()">Вход</button>
