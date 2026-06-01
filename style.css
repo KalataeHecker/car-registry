@@ -1,81 +1,102 @@
 body {
     margin: 0;
     font-family: Arial;
-    background: #0b1220;
-    color: white;
+    background: #e9eef5;
+    color: #1b1f2a;
 }
 
-/* TOP */
-.topbar {
+/* HEADER */
+.header {
+    background: #0b2a4a;
+    color: white;
+    padding: 15px;
     display: flex;
     justify-content: space-between;
-    padding: 15px;
-    background: #111a2e;
+    align-items: center;
 }
 
-.title {
-    font-size: 20px;
+.logo {
+    font-size: 18px;
     font-weight: bold;
 }
 
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-    padding: 20px;
-}
-
-/* CARD */
-.card {
-    background: #1f2a44;
-    padding: 10px;
-    border-radius: 10px;
+.login-btn {
     cursor: pointer;
-}
-
-.card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-/* ADMIN */
-.admin-panel {
-    padding: 20px;
-    background: #111a2e;
-}
-
-input, button {
-    padding: 10px;
-    margin: 5px;
-    border: none;
+    background: #1f4f7a;
+    padding: 8px 12px;
     border-radius: 5px;
 }
 
+/* PANEL */
+.panel {
+    background: white;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input, button {
+    padding: 8px;
+    margin: 5px;
+}
+
 button {
-    background: #2563eb;
+    background: #0b2a4a;
     color: white;
+    border: none;
     cursor: pointer;
 }
 
-/* LOGIN */
+/* TABLE */
+.table-container {
+    margin: 20px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #0b2a4a;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+td img {
+    width: 70px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* MODAL */
 .modal {
     display: none;
     position: fixed;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.6);
     top: 0;
 }
 
 .modal-box {
-    background: #111a2e;
+    background: white;
     width: 300px;
     margin: 15% auto;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     position: relative;
 }
 
@@ -90,19 +111,18 @@ button {
 .details {
     display: none;
     position: fixed;
-    top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.8);
-    padding: 40px;
+    background: rgba(0,0,0,0.7);
+    top: 0;
 }
 
 .details-box {
-    background: #1f2a44;
-    padding: 20px;
+    background: white;
     width: 400px;
-    margin: auto;
-    border-radius: 10px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
 }
 
 .admin-only {
