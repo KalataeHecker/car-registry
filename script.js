@@ -1,85 +1,99 @@
 let cars = JSON.parse(localStorage.getItem("cars")) || [
-    { plate: "CA1234AB", brand: "BMW", model: "320d", status: "ACTIVE" },
-    { plate: "CB5678CD", brand: "Audi", model: "A4", status: "ACTIVE" }
+    {
+        img: "https://upload.wikimedia.org/wikipedia/commons/3/3f/BMW_3_Series.jpg",
+        plate: "CA1234AB",
+        brand: "BMW",
+        model: "320d",
+        year: "2018",
+        owner: "Иван Иванов",
+        info: "Шофьор със стаж 10 години"
+    }
 ];
 
 function save() {
     localStorage.setItem("cars", JSON.stringify(cars));
 }
 
-function render(filter = "") {
-    const list = document.getElementById("list");
-    list.innerHTML = "";
+/* RENDER */
+function render() {
+    const container = document.getElementById("cars");
+    container.innerHTML = "";
 
-    cars
-    .filter(c =>
-        c.plate.toLowerCase().includes(filter.toLowerCase()) ||
-        c.brand.toLowerCase().includes(filter.toLowerCase())
-    )
-    .forEach((car, i) => {
-        list.innerHTML += `
-            <tr>
-                <td>${car.plate}</td>
-                <td>${car.brand}</td>
-                <td>${car.model}</td>
-                <td>${car.status}</td>
-                <td class="admin-only">
-                    <button onclick="removeCar(${i})">DELETE</button>
-                </td>
-            </tr>
+    cars.forEach((c, i) => {
+        container.innerHTML += `
+        <div class="card" onclick="openDetails(${i})">
+            <img src="${c.img}">
+            <h3>${c.plate}</h3>
+            <p>${c.brand} ${c.model}</p>
+        </div>
         `;
     });
-
-    applyAdmin();
 }
 
+function openDetails(i) {
+    const c = cars[i];
+
+    document.getElementById("details").style.display = "block";
+    document.getElementById("details").innerHTML = `
+        <div class="details-box">
+            <h2>${c.plate}</h2>
+            <img src="${c.img}" style="width:100%">
+            <p><b>Марка:</b> ${c.brand}</p>
+            <p><b>Модел:</b> ${c.model}</p>
+            <p><b>Година:</b> ${c.year}</p>
+            <p><b>Собственик:</b> ${c.owner}</p>
+            <p><b>Характеристики:</b> ${c.info}</p>
+            <button onclick="closeDetails()">Затвори</button>
+        </div>
+    `;
+}
+
+function closeDetails() {
+    document.getElementById("details").style.display = "none";
+}
+
+/* ADD CAR */
 function addCar() {
     cars.push({
+        img: img.value,
         plate: plate.value,
         brand: brand.value,
         model: model.value,
-        status: "ACTIVE"
+        year: year.value,
+        owner: owner.value,
+        info: info.value
     });
 
     save();
     render();
 }
-
-function removeCar(i) {
-    cars.splice(i, 1);
-    save();
-    render();
-}
-
-/* SEARCH */
-search.addEventListener("input", e => render(e.target.value));
 
 /* LOGIN */
 function openLogin() {
     loginModal.style.display = "block";
 }
 
+function closeLogin() {
+    loginModal.style.display = "none";
+}
+
 function login() {
     if (username.value === "admin" && password.value === "72725324") {
         localStorage.setItem("admin", "true");
-        loginModal.style.display = "none";
+        closeLogin();
         applyAdmin();
     } else {
-        error.innerText = "Wrong credentials";
+        error.innerText = "Грешни данни";
     }
 }
 
+/* ADMIN */
 function applyAdmin() {
     if (localStorage.getItem("admin") === "true") {
         document.querySelectorAll(".admin-only").forEach(e => {
-            e.style.display = "inline-block";
+            e.style.display = "block";
         });
     }
-}
-
-function logout() {
-    localStorage.removeItem("admin");
-    location.reload();
 }
 
 render();
