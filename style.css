@@ -1,47 +1,50 @@
 body {
     margin: 0;
     font-family: Arial;
-    background: #eef2f7;
+    background: #e8eef6;
+    color: #1d2430;
 }
 
-/* HEADER */
-.header {
-    background: #0a2a43;
+/* TOP BAR */
+.topbar {
+    background: #0b2a4a;
     color: white;
-    padding: 15px;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.title {
+.logo {
     font-weight: bold;
     font-size: 16px;
 }
 
-.login {
+.user {
     cursor: pointer;
-    background: #123b5a;
+    background: #163a5c;
     padding: 8px 12px;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 /* PANEL */
 .panel {
-    margin: 15px;
-    padding: 15px;
     background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 input, button {
     padding: 8px;
     margin: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
 }
 
 button {
-    background: #0a2a43;
+    background: #0b2a4a;
     color: white;
     border: none;
     cursor: pointer;
@@ -49,10 +52,11 @@ button {
 
 /* TABLE */
 .table-box {
-    margin: 15px;
+    margin: 20px;
     background: white;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 table {
@@ -61,21 +65,21 @@ table {
 }
 
 th {
-    background: #0a2a43;
+    background: #0b2a4a;
     color: white;
     padding: 10px;
 }
 
 td {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
 }
 
 td img {
-    width: 70px;
-    height: 50px;
+    width: 80px;
+    height: 55px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 /* LOGIN */
@@ -90,10 +94,10 @@ td img {
 
 .modal-box {
     background: white;
-    width: 300px;
+    width: 320px;
     margin: 15% auto;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     position: relative;
 }
 
