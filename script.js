@@ -1,9 +1,30 @@
 let cars = JSON.parse(localStorage.getItem("cars")) || [];
 let editIndex = null;
 
-/* SAVE */
-function save() {
-    localStorage.setItem("cars", JSON.stringify(cars));
+/* LOGIN */
+function openLogin() {
+    loginModal.style.display = "block";
+}
+
+function closeLogin() {
+    loginModal.style.display = "none";
+}
+
+function login() {
+    if (username.value === "admin" && password.value === "7272") {
+        localStorage.setItem("admin", "true");
+        closeLogin();
+        showAdmin();
+    } else {
+        error.innerText = "Грешни данни";
+    }
+}
+
+/* SWITCH MODE */
+function showAdmin() {
+    document.getElementById("guestView").classList.add("hidden");
+    document.getElementById("adminView").classList.remove("hidden");
+    render();
 }
 
 /* IMAGE */
@@ -35,18 +56,13 @@ function saveCar() {
             editIndex = null;
         }
 
-        save();
+        localStorage.setItem("cars", JSON.stringify(cars));
         render();
         clear();
     }
 
-    if (file) {
-        toBase64(file, finish);
-    } else if (editIndex !== null) {
-        finish(cars[editIndex].img);
-    } else {
-        alert("Добави снимка!");
-    }
+    if (file) toBase64(file, finish);
+    else if (editIndex !== null) finish(cars[editIndex].img);
 }
 
 /* CLEAR */
@@ -60,7 +76,7 @@ function clear() {
     info.value = "";
 }
 
-/* RENDER */
+/* RENDER TABLE */
 function render() {
     const list = document.getElementById("list");
     list.innerHTML = "";
@@ -74,21 +90,19 @@ function render() {
             <td>${c.model}</td>
             <td>${c.year}</td>
             <td>${c.owner}</td>
-            <td class="admin-only">
-                <button onclick="editCar(${i})">Редактирай</button>
-                <button onclick="deleteCar(${i})">Изтрий</button>
+            <td>
+                <button onclick="editCar(${i})">Edit</button>
+                <button onclick="deleteCar(${i})">Delete</button>
             </td>
         </tr>
         `;
     });
-
-    applyMode();
 }
 
 /* DELETE */
 function deleteCar(i) {
     cars.splice(i, 1);
-    save();
+    localStorage.setItem("cars", JSON.stringify(cars));
     render();
 }
 
@@ -106,37 +120,30 @@ function editCar(i) {
     editIndex = i;
 }
 
-/* LOGIN */
-function openLogin() {
-    loginModal.style.display = "block";
+/* SEARCH */
+function searchCar() {
+    const val = search.value.toLowerCase();
+    const result = cars.filter(c => c.plate.toLowerCase().includes(val));
+
+    searchResult.innerHTML = result.length
+        ? result.map(c => `<div>🚗 ${c.plate} - ${c.brand} ${c.model}</div>`).join("")
+        : "Няма резултати";
 }
 
-function closeLogin() {
-    loginModal.style.display = "none";
-}
+/* GUEST BRAND VIEW */
+function openBrand(brand) {
+    const filtered = cars.filter(c => c.brand === brand);
 
-function login() {
-    if (username.value === "admin" && password.value === "7272") {
-        localStorage.setItem("admin", "true");
-        closeLogin();
-        applyMode();
-    } else {
-        error.innerText = "Грешни данни";
-    }
-}
-
-/* MODE SWITCH */
-function applyMode() {
-    const isAdmin = localStorage.getItem("admin") === "true";
-
-    document.querySelectorAll(".admin-only").forEach(e => {
-        e.style.display = isAdmin ? "table-cell" : "none";
-    });
-
-    document.querySelector(".panel").style.display = isAdmin ? "block" : "none";
-    document.getElementById("guestView").style.display = isAdmin ? "none" : "block";
+    brandModels.innerHTML = `
+        <h3>${brand} модели</h3>
+        ${filtered.map(c => `
+            <div class="card">
+                <img src="${c.img}" style="width:100%">
+                <p>${c.model}</p>
+            </div>
+        `).join("")}
+    `;
 }
 
 /* INIT */
 render();
-applyMode();
