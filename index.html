@@ -7,13 +7,11 @@
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- TOP BAR -->
 <div class="topbar">
-    <div class="login" onclick="openLogin()">👤 Вход</div>
+    <div class="logo">🏛️ Регистър на автомобили</div>
+    <div class="user" onclick="openLogin()">👤 Вход</div>
 </div>
-
-<!-- TITLE -->
-<h1 class="title">РЕГИСТЪР НА АВТОМОБИЛИ</h1>
 
 <!-- LOGIN -->
 <div id="loginModal" class="modal">
@@ -27,43 +25,63 @@
     </div>
 </div>
 
-<!-- ADMIN PANEL -->
-<div class="panel admin-only">
-    <h3>Добавяне / редакция</h3>
-
-    <input type="file" id="imgFile" accept="image/*">
-
-    <input id="plate" placeholder="Рег. номер">
-    <input id="brand" placeholder="Марка">
-    <input id="model" placeholder="Модел">
-    <input id="year" placeholder="Година">
-    <input id="owner" placeholder="Собственик">
-    <input id="info" placeholder="Характеристики">
-
-    <button onclick="saveCar()">Запази</button>
-</div>
-
 <!-- GUEST VIEW -->
-<div id="guestView" class="guest-box">
-    <p>🔍 Системата е в режим само за преглед</p>
+<div id="guestView">
+    <h2 class="title">Популярни марки</h2>
+
+    <div class="grid">
+        <div class="card" onclick="openBrand('BMW')">BMW</div>
+        <div class="card" onclick="openBrand('Audi')">Audi</div>
+        <div class="card" onclick="openBrand('Mercedes')">Mercedes</div>
+        <div class="card" onclick="openBrand('VW')">VW</div>
+        <div class="card" onclick="openBrand('Toyota')">Toyota</div>
+        <div class="card" onclick="openBrand('Ford')">Ford</div>
+    </div>
+
+    <div id="brandModels"></div>
 </div>
 
-<!-- TABLE -->
-<div class="table-box">
-<table>
-    <thead>
-        <tr>
-            <th>Снимка</th>
-            <th>Рег. номер</th>
-            <th>Марка</th>
-            <th>Модел</th>
-            <th>Година</th>
-            <th>Собственик</th>
-            <th class="admin-only">Действия</th>
-        </tr>
-    </thead>
-    <tbody id="list"></tbody>
-</table>
+<!-- ADMIN DASHBOARD -->
+<div id="adminView" class="hidden">
+
+    <h2 class="title">Административен панел</h2>
+
+    <!-- SEARCH -->
+    <input id="search" placeholder="Търсене по рег. номер..." oninput="searchCar()">
+
+    <div id="searchResult"></div>
+
+    <!-- FORM -->
+    <div class="panel">
+        <h3>Добавяне / редакция</h3>
+
+        <input type="file" id="imgFile">
+        <input id="plate" placeholder="Рег. номер">
+        <input id="brand" placeholder="Марка">
+        <input id="model" placeholder="Модел">
+        <input id="year" placeholder="Година">
+        <input id="owner" placeholder="Собственик">
+        <input id="info" placeholder="Информация">
+
+        <button onclick="saveCar()">Запази</button>
+    </div>
+
+    <!-- TABLE -->
+    <table>
+        <thead>
+            <tr>
+                <th>Снимка</th>
+                <th>Рег. номер</th>
+                <th>Марка</th>
+                <th>Модел</th>
+                <th>Година</th>
+                <th>Собственик</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody id="list"></tbody>
+    </table>
+
 </div>
 
 <script src="script.js"></script>
